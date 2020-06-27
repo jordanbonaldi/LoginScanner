@@ -1,6 +1,6 @@
 {
-  "name": "@jordanbonaldi/<project>",
-  "version": "1.0.0",
+  "name": "@neferett/loginscanner",
+  "version": "1.0.1",
   "description": "",
   "scripts": {
     "watch": "nodemon",
@@ -10,10 +10,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jordanbonaldi/<project>.git"
+    "url": "git+https://github.com/jordanbonaldi/LoginScanner.git"
   },
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com/"
+    "registry": "https://registry.npmjs.org"
   },
   "dependencies": {
     "@hasezoey/typegoose": "^5.9.1",
@@ -21,10 +21,13 @@
     "guid-typescript": "latest",
     "mongoose": "^5.9.14",
     "npm-auto-version": "^1.0.0",
+    "puppeteer": "^4.0.1",
+    "puppeteer-core": "^4.0.1",
     "reflect-metadata": "^0.1.13"
   },
   "devDependencies": {
     "@types/mongoose": "^5.7.20",
+    "@types/puppeteer": "^3.0.0",
     "nodemon": "^2.0.4",
     "rimraf": "^3.0.2",
     "ts-node": "^8.6.2",
@@ -36,10 +39,10 @@
     "lib": "lib"
   },
   "keywords": [],
-  "author": "",
+  "author": "Jordan Bonaldi",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/jordanbonaldi/<project>/issues"
+    "url": "https://github.com/jordanbonaldi/LoginScanner/issues"
   },
-  "homepage": "https://github.com/jordanbonaldi/<project>#readme"
+  "homepage": "https://github.com/jordanbonaldi/LoginScanner#readme"
 }
