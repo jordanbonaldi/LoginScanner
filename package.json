@@ -1,0 +1,45 @@
+{
+  "name": "@jordanbonaldi/<project>",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "watch": "nodemon",
+    "build": "rimraf ./lib && tsc",
+    "start": "npm run build && node lib/index.js",
+    "prepublish": "npm run build && npm-auto-version"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jordanbonaldi/<project>.git"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
+  "dependencies": {
+    "@hasezoey/typegoose": "^5.9.1",
+    "@types/node": "^13.13.6",
+    "guid-typescript": "latest",
+    "mongoose": "^5.9.14",
+    "npm-auto-version": "^1.0.0",
+    "reflect-metadata": "^0.1.13"
+  },
+  "devDependencies": {
+    "@types/mongoose": "^5.7.20",
+    "nodemon": "^2.0.4",
+    "rimraf": "^3.0.2",
+    "ts-node": "^8.6.2",
+    "typescript": "^3.9.2"
+  },
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "directories": {
+    "lib": "lib"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jordanbonaldi/<project>/issues"
+  },
+  "homepage": "https://github.com/jordanbonaldi/<project>#readme"
+}
