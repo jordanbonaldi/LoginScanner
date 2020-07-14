@@ -1,10 +1,10 @@
 {
   "name": "@neferett/loginscanner",
-  "version": "1.0.1",
+  "version": "1.0.6",
   "description": "",
   "scripts": {
     "watch": "nodemon",
-    "build": "rimraf ./lib && tsc",
+    "build": "rimraf ./lib && mkdir lib && cp -r data ./lib/. && tsc",
     "start": "npm run build && node lib/index.js",
     "prepublish": "npm run build && npm-auto-version"
   },
