@@ -3,6 +3,8 @@ import {Browser, launch, Page} from 'puppeteer';
 import PasswordInjector from "../Injector/PasswordInjector";
 import Injector from "../Injector/Injector";
 import UsernameInjector from "../Injector/UsernameInjector";
+import SubmitInjector from "../Injector/SubmitInjector";
+import ILoginForm from "../Interfaces/ILoginForm";
 
 class InputsFetcherClass {
 
@@ -18,19 +20,23 @@ class InputsFetcherClass {
         private injectors: Injector[] = [
             new PasswordInjector(),
             new UsernameInjector(),
+            new SubmitInjector()
         ]
         // Todo: Login Type
     ) {}
 
-    load(): Promise<string[]> {
+    load(): Promise<ILoginForm> {
         return launch({headless: false})
             .then((browser: Browser) => browser.newPage()
                 .then((page: Page) =>
                     page.emulate(this.device)
                         .then(() =>
                             page.goto(this.url, {waitUntil: 'networkidle0'})
-                                .then(() => page.addScriptTag({url: 'https://code.jquery.com/jquery-3.2.1.min.js'}))
-                                .then(() => this.javascriptInjection(page))
+                                .then(() =>
+                                    this.javascriptInjection(page).then((loginForm: ILoginForm) =>
+                                        browser.close().then(() => loginForm)
+                                    )
+                                )
                         )
                 )
             )
@@ -40,14 +46,19 @@ class InputsFetcherClass {
      *
      * @param page
      */
-    private javascriptInjection(page: Page): Promise<string[]> {
+    private javascriptInjection(page: Page): Promise<ILoginForm> {
         return Promise.all(this.injectors.map((injector: Injector) =>
             page.evaluate(injector.injection,
                 injector.dictionary === undefined ? [] : injector.dictionary,
                 injector.exclude === undefined ? [] : injector.exclude,
                 injector.elementsToCheck === undefined ? [] : injector.elementsToCheck
             )
-        ));
+        )).then((evaluation: string[]) => Promise.resolve({
+            username: evaluation[1],
+            password: evaluation[0],
+            submit: evaluation[2],
+            testInjection: false
+        }));
     }
 }
 
@@ -57,6 +68,6 @@ class InputsFetcherClass {
  * @param device
  * @constructor
  */
-export default function InputsFetcher(url: string, device: Device): Promise<string[]> {
+export default function InputsFetcher(url: string, device: Device): Promise<ILoginForm> {
     return new InputsFetcherClass(url, device).load();
 }

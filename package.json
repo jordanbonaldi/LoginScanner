@@ -1,6 +1,6 @@
 {
-  "name": "@neferett/loginscanner",
-  "version": "1.0.6",
+  "name": "@Neferett/loginscanner",
+  "version": "1.0.7",
   "description": "",
   "scripts": {
     "watch": "nodemon",

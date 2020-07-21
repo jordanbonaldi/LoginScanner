@@ -2,20 +2,20 @@ import Injector from "./Injector";
 import { readFileSync } from 'fs';
 import path = require("path");
 
-export default class UsernameInjector implements Injector {
+export default class SubmitInjector implements Injector {
 
     elementsToCheck: string[] = [
-        'type', 'name', 'id'
+        'type', 'name', 'id', 'value', 'innerText'
     ]
-
-    dictionary: string[];
 
     exclude: string[] = [
         'signup', 'gss', 'checkbox', 'password'
     ]
 
+    dictionary: string[];
+
     constructor() {
-        let content: string = readFileSync(path.join(__dirname, "../data/inputUsernameDictionary")).toString();
+        let content: string = readFileSync(path.join(__dirname, "../data/inputButtonDictionary")).toString();
 
         this.dictionary = content.split('\n');
     }
@@ -42,7 +42,12 @@ export default class UsernameInjector implements Injector {
             )[0] != null;
         }
 
-        let foundElement: HTMLInputElement | null = Array.from(document.querySelectorAll('input')).filter((element: any) =>
+        let allTypeSubmit: NodeListOf<HTMLButtonElement> = document.querySelectorAll('button[type=submit]');
+
+        if (allTypeSubmit.length === 1)
+            return 'QUERY: button[type=submit]'; // Only if we have one button that submit php code on the form
+
+        let foundElement: HTMLButtonElement | null = Array.from(document.querySelectorAll('button')).filter((element: any) =>
             elementsToCheck.filter((el: string) => {
                 if (element[el] === '') return false;
 
@@ -52,7 +57,7 @@ export default class UsernameInjector implements Injector {
             })[0] != null
         )[0];
 
-        //Todo: return matched input
+        // Trying to retrieve Name and ID of the button
         return foundElement == undefined ? "None" : `${foundElement.id !== '' ? 'ID' : 'Name'}: ${foundElement.id !== '' ? foundElement.id : foundElement.name}`;
     }
 

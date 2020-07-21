@@ -5,8 +5,8 @@ export default class PasswordInjector implements Injector {
     injection(): string {
         let element: HTMLInputElement | null = document.querySelector('input[type="password"]');
 
-        return (element ==  null || (!element.id || !element.name)) ? "None" :
-            `${element.id ? 'ID' : 'Name'}: ${element.id || element.name}`;
+        return (element == null || (element.id == undefined || element.name == undefined)) ? "None" :
+            `${element.id !== '' ? 'ID' : 'Name'}: ${element.id !== '' ? element.id : element.name}`;
     }
 
 }

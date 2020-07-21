@@ -1,11 +1,19 @@
 import * as puppeteer from 'puppeteer';
-import InputsFetcher from "./Api/InputsFetcher";
+import InputsFetcher from "./Fetcher/InputsFetcher";
+import ILoginForm from "./Interfaces/ILoginForm";
+import PasswordInjector from './Injector/PasswordInjector';
+import UsernameInjector from './Injector/UsernameInjector';
+import SubmitInjector from './Injector/SubmitInjector';
+import Injector from './Injector/Injector';
 
 export function getAllDevices() {
     return puppeteer.devices;
 }
-
-InputsFetcher(
-    'https://www.expedia.co.uk/user/signin',
-    getAllDevices()['Pixel 2 XL']
-).then((evaluation: string[]) => console.log(evaluation));
+export {
+    ILoginForm,
+    InputsFetcher,
+    PasswordInjector,
+    UsernameInjector,
+    SubmitInjector,
+    Injector
+}
