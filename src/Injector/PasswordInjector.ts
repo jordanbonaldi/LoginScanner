@@ -6,7 +6,7 @@ export default class PasswordInjector implements Injector {
         let element: HTMLInputElement | null = document.querySelector('input[type="password"]');
 
         return (element == null || (element.id == undefined || element.name == undefined)) ? "None" :
-            `${element.id !== '' ? 'ID' : 'Name'}: ${element.id !== '' ? element.id : element.name}`;
+            `${element.id !== '' ? 'getElementById' : 'getElementsByName'}: ${element.id !== '' ? element.id : element.name}`;
     }
 
 }

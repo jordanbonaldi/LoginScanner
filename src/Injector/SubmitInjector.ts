@@ -26,7 +26,8 @@ export default class SubmitInjector implements Injector {
      * @param exclude
      * @param elementsToCheck
      */
-    injection(dictionary ?: string[], exclude ?: string[], elementsToCheck ?: string[]): string {
+    injection(dictionary ?: string[], exclude ?: string[], elementsToCheck ?: string[]): string
+    {
         if (
             (elementsToCheck == undefined || !Array.isArray(elementsToCheck)) ||
             (dictionary === undefined || !Array.isArray(dictionary)) ||
@@ -45,7 +46,7 @@ export default class SubmitInjector implements Injector {
         let allTypeSubmit: NodeListOf<HTMLButtonElement> = document.querySelectorAll('button[type=submit]');
 
         if (allTypeSubmit.length === 1)
-            return 'QUERY: button[type=submit]'; // Only if we have one button that submit php code on the form
+            return 'querySelector: button[type=submit]'; // Only if we have one button that submit php code on the form
 
         let foundElement: HTMLButtonElement | null = Array.from(document.querySelectorAll('button')).filter((element: any) =>
             elementsToCheck.filter((el: string) => {
@@ -58,7 +59,7 @@ export default class SubmitInjector implements Injector {
         )[0];
 
         // Trying to retrieve Name and ID of the button
-        return foundElement == undefined ? "None" : `${foundElement.id !== '' ? 'ID' : 'Name'}: ${foundElement.id !== '' ? foundElement.id : foundElement.name}`;
+        return foundElement == undefined ? "None" : `${foundElement.id !== '' ? 'getElementById' : 'getElementsByName'}: ${foundElement.id !== '' ? foundElement.id : foundElement.name}`;
     }
 
 }

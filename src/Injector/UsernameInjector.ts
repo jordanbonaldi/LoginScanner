@@ -53,7 +53,7 @@ export default class UsernameInjector implements Injector {
         )[0];
 
         //Todo: return matched input
-        return foundElement == undefined ? "None" : `${foundElement.id !== '' ? 'ID' : 'Name'}: ${foundElement.id !== '' ? foundElement.id : foundElement.name}`;
+        return foundElement == undefined ? "None" : `${foundElement.id !== '' ? 'getElementById' : 'getElementsByName'}: ${foundElement.id !== '' ? foundElement.id : foundElement.name}`;
     }
 
 }

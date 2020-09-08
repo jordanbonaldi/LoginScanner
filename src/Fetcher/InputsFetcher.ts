@@ -5,6 +5,7 @@ import Injector from "../Injector/Injector";
 import UsernameInjector from "../Injector/UsernameInjector";
 import SubmitInjector from "../Injector/SubmitInjector";
 import ILoginForm from "../Interfaces/ILoginForm";
+import IForm, { createIForm } from "../Interfaces/IForm";
 
 class InputsFetcherClass {
 
@@ -26,7 +27,7 @@ class InputsFetcherClass {
     ) {}
 
     load(): Promise<ILoginForm> {
-        return launch({headless: false})
+        return launch({headless: true})
             .then((browser: Browser) => browser.newPage()
                 .then((page: Page) =>
                     page.emulate(this.device)
@@ -54,10 +55,9 @@ class InputsFetcherClass {
                 injector.elementsToCheck === undefined ? [] : injector.elementsToCheck
             )
         )).then((evaluation: string[]) => Promise.resolve({
-            username: evaluation[1],
-            password: evaluation[0],
-            submit: evaluation[2],
-            testInjection: false
+            username: createIForm(evaluation[1]),
+            password: createIForm(evaluation[0]),
+            submit: createIForm(evaluation[2])
         }));
     }
 }

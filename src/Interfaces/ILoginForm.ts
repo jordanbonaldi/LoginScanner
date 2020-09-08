@@ -1,11 +1,8 @@
-type IForm = string;
-type ITest = boolean;
-
+import IForm from "./IForm";
 
 export default interface ILoginForm
 {
     username: IForm,
     password: IForm,
     submit: IForm
-    testInjection: ITest;
-};
+}
