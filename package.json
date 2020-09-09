@@ -6,7 +6,8 @@
     "watch": "nodemon",
     "build": "rimraf ./lib && mkdir lib && cp -r data ./lib/. && tsc",
     "start": "npm run build && node lib/index.js",
-    "prepublish": "npm run build && npm-auto-version"
+    "prepublish": "npm run build && npm-auto-version",
+    "test": "npm run start Facebook 'https://www.facebook.com/' 'https://m.facebook.com/login/save-device/?login_source=login#_=_'"
   },
   "repository": {
     "type": "git",

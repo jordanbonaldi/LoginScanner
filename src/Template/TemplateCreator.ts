@@ -1,9 +1,9 @@
 import * as fs from 'fs';
-import {getAllDevices, InputsFetcher} from "../index";
 import { Device } from 'puppeteer/DeviceDescriptors';
 import ILoginForm from "../Interfaces/ILoginForm";
 import IForm from "../Interfaces/IForm";
-
+import { getAllDevices } from '..';
+import InputsFetcher from '../Fetcher/InputsFetcher';
 
 export class TemplateCreatorClass
 {
