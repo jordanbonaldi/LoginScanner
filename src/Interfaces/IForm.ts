@@ -5,8 +5,9 @@ export default interface IForm {
 
 /**
  *
- * @param evaluation
- * @private
+ * Parsing string to IForm format, allowing better object mapping over the project
+ *
+ * @param evaluation String to parse
  */
 export function createIForm(evaluation: string): IForm {
     return {

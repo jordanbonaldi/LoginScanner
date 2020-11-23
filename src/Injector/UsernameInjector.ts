@@ -33,6 +33,7 @@ export default class UsernameInjector implements Injector {
             (exclude === undefined || !Array.isArray(exclude))
         ) return 'none';
 
+        // Filtering with the dictionary
         let dictionaryContains = (containedWord: string, type: any) =>
             type.filter((word: string) => (word != '' && containedWord != '') && (word.includes(containedWord) || containedWord.includes(word)))[0] != null;
 
@@ -42,6 +43,7 @@ export default class UsernameInjector implements Injector {
             )[0] != null;
         }
 
+        // Finding the appropriate field
         let foundElement: HTMLInputElement | null = Array.from(document.querySelectorAll('input')).filter((element: any) =>
             elementsToCheck.filter((el: string) => {
                 if (element[el] === '') return false;
@@ -52,7 +54,6 @@ export default class UsernameInjector implements Injector {
             })[0] != null
         )[0];
 
-        //Todo: return matched input
         return foundElement == undefined ? "None" : `${foundElement.id !== '' ? 'getElementById' : 'getElementsByName'}: ${foundElement.id !== '' ? foundElement.id : foundElement.name}`;
     }
 

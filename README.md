@@ -1,28 +1,32 @@
-# LoginScanner
+#Login Scanner
 [![License: MPL 2.0](https://img.shields.io/badge/License-MPL%202.0-brightgreen.svg)](https://opensource.org/licenses/MPL-2.0)
 
-Login page inputs scanner and Java Class creator for WebViewsInjector Project
+###Introduction
+This project automates the creation of a new Service on the WebViewsInjector.
+It currently only handles the OneStep Login forms.
 
+The program returns a Java Class and can upload it.
 
 ### Installation
 
 ```npm install```
 
-### Execution
+### Usage
 
- ```npm run start <name> <url> <final_url>```
+Testing with Facebook Service
 
-### Tests
- ```npm run test```
- 
- PriVELT
-----
+```bash
+npm run test
+```
 
-Android application to centralise known data from different services.
-The project is funded by PriVELT (https://privelt.ac.uk/).
-The project is based on scraping and is only for researches purposes.
+Normal usage with all compatible services (One Step Login)
 
-License
-----
+```bash
+npm run start <service> <url> <loginUrl> <shouldUpload (using automationPush)>
+```
 
+##PriVELT
+Android application to centralise known data from different services. The project is funded by PriVELT (https://privelt.ac.uk/). The project is based on scraping and is only for researches purposes.
+
+##License
 Mozilla Public License 2.0

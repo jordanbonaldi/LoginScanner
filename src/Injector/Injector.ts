@@ -1,3 +1,6 @@
+/**
+ * Injector interface
+ */
 export default interface Injector {
 
     elementsToCheck ?: string[];

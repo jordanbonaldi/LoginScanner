@@ -14,6 +14,9 @@ export default class SubmitInjector implements Injector {
 
     dictionary: string[];
 
+    /**
+     * Initializing the dictionary
+     */
     constructor() {
         let content: string = readFileSync(path.join(__dirname, "../data/inputButtonDictionary")).toString();
 
@@ -34,6 +37,7 @@ export default class SubmitInjector implements Injector {
             (exclude === undefined || !Array.isArray(exclude))
         ) return 'none';
 
+        // Filtering the found types with the dictionary
         let dictionaryContains = (containedWord: string, type: any) =>
             type.filter((word: string) => (word != '' && containedWord != '') && (word.includes(containedWord) || containedWord.includes(word)))[0] != null;
 
@@ -43,11 +47,14 @@ export default class SubmitInjector implements Injector {
             )[0] != null;
         }
 
+        // Finding all submit button
         let allTypeSubmit: NodeListOf<HTMLButtonElement> = document.querySelectorAll('button[type=submit]');
 
+        // If only one the query is retured
         if (allTypeSubmit.length === 1)
             return 'querySelector: button[type=submit]'; // Only if we have one button that submit php code on the form
 
+        // Otherwise we filter the appropriate attribute with the dictionary
         let foundElement: HTMLButtonElement | null = Array.from(document.querySelectorAll('button')).filter((element: any) =>
             elementsToCheck.filter((el: string) => {
                 if (element[el] === '') return false;

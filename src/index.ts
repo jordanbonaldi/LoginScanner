@@ -9,6 +9,10 @@ export function getAllDevices() {
 
 /**
  *
+ * Handling the process of pulling and updating files from a detached process (action still single threaded)
+ *
+ * The stdout is piped and logged
+ *
  * @param execution
  */
 const handleEvents = (execution: any) => {
@@ -21,8 +25,16 @@ const handleEvents = (execution: any) => {
     );
 }
 
+/**
+ * Call of the update script (all the update code can be found in this script)
+ */
 const commitFile = () => handleEvents(spawn.exec(`./automationPush.sh ${process.argv[2]}`));
 
+/**
+ * Defining the template creator returning a promise for asynchronous actions
+ * When TemplateCreator has finished all its processes it thus commit the created file
+ */
 TemplateCreator(process.argv[2], process.argv[3], process.argv[4]).then(() => {
-    return commitFile();
+    if (process.argv.length >= 6)
+        return commitFile();
 });

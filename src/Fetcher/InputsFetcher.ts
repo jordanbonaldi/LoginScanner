@@ -5,15 +5,17 @@ import Injector from "../Injector/Injector";
 import UsernameInjector from "../Injector/UsernameInjector";
 import SubmitInjector from "../Injector/SubmitInjector";
 import ILoginForm from "../Interfaces/ILoginForm";
-import IForm, { createIForm } from "../Interfaces/IForm";
+import { createIForm } from "../Interfaces/IForm";
 
 class InputsFetcherClass {
 
     /**
      *
-     * @param url
-     * @param device
-     * @param injectors
+     * InputsFetcher Constructor, method empty as properties are defined dynamically
+     *
+     * @param url Login URL
+     * @param device Device
+     * @param injectors All injector that will scrap the URL
      */
     constructor(
         private url: string,
@@ -23,19 +25,23 @@ class InputsFetcherClass {
             new UsernameInjector(),
             new SubmitInjector()
         ]
-        // Todo: Login Type
     ) {}
 
+    /*
+     * Puppeteer declarations
+     *
+     * Property headless means showing or not the webpage (true for no, false for yes)
+     */
     load(): Promise<ILoginForm> {
         return launch({headless: true})
             .then((browser: Browser) => browser.newPage()
                 .then((page: Page) =>
                     page.emulate(this.device)
                         .then(() =>
-                            page.goto(this.url, {waitUntil: 'networkidle0'})
+                            page.goto(this.url, {waitUntil: 'networkidle0'}) // Program's wait that everything is loaded before executing the next instructions
                                 .then(() =>
                                     this.javascriptInjection(page).then((loginForm: ILoginForm) =>
-                                        browser.close().then(() => loginForm)
+                                        browser.close().then(() => loginForm) // Not closing the browser can creates memory leaks
                                     )
                                 )
                         )
@@ -45,9 +51,10 @@ class InputsFetcherClass {
 
     /**
      *
-     * @param page
+     * @param page Puppeteer Page object
      */
     private javascriptInjection(page: Page): Promise<ILoginForm> {
+        // Iterating over all our injectors and injecting their dictionary if found.
         return Promise.all(this.injectors.map((injector: Injector) =>
             page.evaluate(injector.injection,
                 injector.dictionary === undefined ? [] : injector.dictionary,
@@ -63,6 +70,8 @@ class InputsFetcherClass {
 }
 
 /**
+ *
+ * Dynamic Class definition
  *
  * @param url
  * @param device
